@@ -1,0 +1,43 @@
+.header-card {
+  text-align: center;
+  border: 3px solid $color-sand;
+  width: 80%;
+  margin: 0 auto;
+}
+.user-login-card {
+  text-align: center;
+  border: 3px solid $color-sand;
+  padding: 5rem 0;
+  margin: 1rem auto;
+  width: 80%;
+
+}
+.chat-card {
+  margin: 1rem auto 0 auto;
+  border: 3px solid $color-sand;
+  width: 80%;
+  height: 25rem;
+  background: #FFFFFF;
+  overflow: auto;
+  position: relative;
+
+  .chat-messages {
+    font-size: .7rem;
+    margin-left: 1rem;
+    overflow: auto;
+    // position: absolute;
+    // bottom: 0;
+
+  }
+}
+.user-area-card{
+  margin: 0 auto;
+  border: 3px solid $color-sand;
+  border-top: none;
+  width: 80%;
+  height: 5rem;
+  #user-name-text {
+    display: inline-block;
+    margin-left: 1rem;
+  }
+}

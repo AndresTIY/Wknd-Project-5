@@ -1,0 +1,21 @@
+.login-input {
+  font-size: 1rem;
+  margin: 1rem;
+}
+.login-btn {
+  margin: 2rem;
+  padding: 1rem 3rem;
+  border-radius: 1rem;
+  background: $color-dark-pinkish;
+  font-size: 1rem;
+  color: $color-redish;
+}
+
+#input-msg{
+  width: 10rem;
+}
+#ent-msg-btn{}
+
+#input-msg, #ent-msg-btn, #user-name-text {
+  margin-top: 1.8rem;
+}
