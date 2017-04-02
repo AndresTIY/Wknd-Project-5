@@ -169,14 +169,17 @@ export default function app() {
     //   };
 
     // getItemsFn3();
+
     if (state.allData !== undefined){
-      var getIt = state.allData.map(function(message,i,arr){
-        messageView(store, message)
-        console.log(message.fullMsg);
+      chatCard.html("")
+      state.allData.forEach(function(message,i,arr){
+          if(message.fullMsg !== undefined){
+          chatCard.append(messageView(store, message))
+          console.log(message.fullMsg);
+        }
       })
-      // chatCard.append(getIt) //nothing, append('test') works
-    }
-    chatCard.html(getIt) //nothing, append('test') works
+    };
+    // chatCard.append(getIt)
 
 
 
