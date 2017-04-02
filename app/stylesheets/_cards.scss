@@ -12,24 +12,27 @@
   width: 80%;
 
 }
-.chat-card {
+
+.outer-chat-card{
   margin: 1rem auto 0 auto;
   border: 3px solid $color-sand;
   width: 80%;
   height: 25rem;
   background: #FFFFFF;
-  overflow: auto;
   position: relative;
+  overflow: auto;
 
-  .chat-messages {
-    font-size: .7rem;
-    margin-left: 1rem;
-    overflow: auto;
-    // position: absolute;
-    // bottom: 0;
+  .chat-card {
+    position: absolute;
+    bottom: 0;
 
+    .chat-messages {
+      font-size: .7rem;
+      margin-left: 1rem;
+    }
   }
 }
+
 .user-area-card{
   margin: 0 auto;
   border: 3px solid $color-sand;

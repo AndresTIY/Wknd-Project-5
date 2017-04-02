@@ -129,7 +129,10 @@ export default function app() {
     let state = store.getState();
     let $user = state.currentUser;
     let $html =
-        $(`<div><div class="chat-card"></div></div>
+          $(`<div class="outer-chat-card">
+              <div class="chat-card">
+              </div>
+            </div>
             <div class="user-area-card">
             <p id="user-name-text">${$user}</p>
             <input id="input-msg" type="text" name="" value="">
@@ -143,11 +146,14 @@ export default function app() {
 
 
 
+
     if (state.allData !== undefined){
       chatCard.html("")
       state.allData.forEach(function(message,i,arr){
           if(message.fullMsg !== undefined){
-          chatCard.append(messageView(store, message))
+          chatCard.prepend(messageView(store, message))
+          // chatCard.html("")
+
           // console.log(message._id);
         }
       })
