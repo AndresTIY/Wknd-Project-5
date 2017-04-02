@@ -97,5 +97,6 @@ export default function app() {
   };
 
   store.subscribe(render);
+  setInterval(()=>{type:"LOAD_MSG"}, 2000);
   store.dispatch({type:"NOOP"})
 }
