@@ -38,12 +38,13 @@ export default function app() {
 
       case "MSG_LOADED":
         var newState = {
-          allData: action.allData
-
+          allData: action.allData,
+          currentUser: 'text'
         }
-        // console.log(newState);
 
+        console.log(newState);
         return Object.assign({}, currentState, newState);
+
 
       case "MSG_SENT":
         $.ajax({
@@ -58,7 +59,17 @@ export default function app() {
           }
         }).then(function(data,status, xhr){
           store.dispatch({type:"LOAD_MSG"})
-        })
+        });
+        return currentState;
+
+      case "DELETE_MSG":
+        var msg = action.message
+        $.ajax({
+          url: `${url}/${msg._id }`,
+          type: "DELETE"
+        }).then((data)=>{
+          store.dispatch({type:"LOAD_MSG"}) });
+        return currentState;
 
 
 
@@ -116,11 +127,11 @@ export default function app() {
   //Chat View
   function chatView(store){
     let state = store.getState();
-    let currentUser = state.user;
+    let $user = state.currentUser;
     let $html =
         $(`<div><div class="chat-card"></div></div>
             <div class="user-area-card">
-            <p id="user-name-text">${state.currentUser}</p>
+            <p id="user-name-text">${$user}</p>
             <input id="input-msg" type="text" name="" value="">
             <button id="ent-msg-btn" type="button" name="button">SEND</button>
           </div>`);
@@ -128,85 +139,31 @@ export default function app() {
     let $msgInput = $($html).find('#input-msg');
     var moment = require('moment');
     let timestamp = moment().format('M/D/YYYY, h:mm:ssa');
-
-
-
-    // var messages = state.allData.map(function(message, i, arr){
-    //   return messageView(store, message)
-    // })
-    // var allOfTheData = state.allData
-    // var getItemsFn = function(){
-    //   $.getJSON(url).then((data)=>{
-    //     data.map(function(message, i, arr){
-    //       messageView(store, message)
-    //       console.log(message.fullMsg);
-    //       //all fullMsg gets logged 4 times
-    //     })
-    //   })
-    // };
-    // getItemsFn();
-    // chatCard.append(getItemsFn()) nothing happens
-    // chatCard.append(getItemsFn) nothing happens
-
-
-
-    // getItemsFn();
     let chatCard = $($html).find('.chat-card');
-    // chatCard.append(getItemsFn())
 
-    // var getItemsFn2 =
-    //   if (state.allData !== undefined){
-      // state.allData.map(function(message, i, arr){
-        // messageView(store, message)
-        // console.log(message.fullMsg );
-    //   })
-    // };
-    // var getItemsFn3 =
-    //   if (state.allData !== undefined){
-    //     state.allData.map(function(message,i,arr){
-    //       messageView(store, message)
-    //     })
-    //   };
 
-    // getItemsFn3();
 
     if (state.allData !== undefined){
       chatCard.html("")
       state.allData.forEach(function(message,i,arr){
           if(message.fullMsg !== undefined){
           chatCard.append(messageView(store, message))
-          console.log(message.fullMsg);
+          // console.log(message._id);
         }
       })
     };
-    // chatCard.append(getIt)
-
-
-
-    // chatCard.append(getItemsFn3)
-    // console.log(getItemsFn2);
-
-    //logs everything twice
-    // var blarg = state.allData
-    // console.log(blarg);
-
-    // var messages = state.allData.forEach(function(item, i, arr){
-    //   return item;
-    // })
-
-    //state.allData gives me an array of objects
 
 
     $sendBtn.on('click',function(e){
 
       let $newMsg = $msgInput.val();
 
-      let $fullMessage = `${state.currentUser} (${timestamp}): ${$newMsg}`
+      let $fullMessage = `${$user} (${timestamp}): ${$newMsg}`
 
 
       store.dispatch({
         type:"MSG_SENT",
-        user: currentUser,
+        user: $user,
         timestamp: timestamp,
         messageBody: $newMsg,
         fullMsg: $fullMessage
@@ -220,19 +177,19 @@ export default function app() {
   }//end of chat view
 
   function messageView(store, message){
-    let $html = $(`<p class="chat-messages">${message.fullMsg}</p>`)
-    //line 26,27, todo within function(todo) and
-      //return toDoView(store,todo)
-    //58) case CREATE_TODO, ajax post request
-      //data: {name:action.todo}
-    //34) click event, store.dispatch({type: CREATE, todo:todoText})
-        //33)todoText assigned to input.val()
-    //dispatch for todo is seen with the delete button
+    let $html = $(`<p class="chat-messages"><button class="">x</button> ${message.fullMsg}</p>`)
+    let $deleteBtn = $($html).find('button');
 
+    let state = store.getState();
+    if (state.currentUser = message.user){
+      console.log('yay');
+    }
 
+    $deleteBtn.on('click',(e)=>{
+      console.log('delete button clicks');
+      store.dispatch({ type: "DELETE_MSG", message: message})
+    })
     return $html
-    // console.log($html); //logs the p tag with appropriate messages
-    // console.log(message.fullMsg) gives us fullMsg for each item twice
   }
 
 
