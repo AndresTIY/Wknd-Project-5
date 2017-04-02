@@ -27,22 +27,23 @@ export default function app() {
           view: chatView
         };
         $.getJSON(url).then((data)=> {
-          store.dispatch({type:"MSG_LOADED", allData: data})
+          store.dispatch({type:"MSG_LOADED", user: newState.currentUser, allData: data})
         })
-        // console.log(newState);
+        console.log(newState);
         return Object.assign({}, currentState, newState);
 
         //done when msg sent or del
       case "LOAD_MSG":
         $.getJSON(url).then((data)=>{
-          store.dispatch({type:"MSG_LOADED", allData: data})
+          store.dispatch({type:"MSG_LOADED", user: currentState.currentUser, allData: data})
         })
         return currentState;
 
       case "MSG_LOADED":
         var newState = {
-          allData: action.allData,
-          currentUser: 'text'
+          currentUser: action.user,
+          allData: action.allData
+
         }
 
         console.log(newState);

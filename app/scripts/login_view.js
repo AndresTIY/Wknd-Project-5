@@ -1,4 +1,4 @@
-export default function (store){
+export default function loginView (store){
 
   let $html =
       $(`<div class="header-card"><h1>Chat Room</h1></div>

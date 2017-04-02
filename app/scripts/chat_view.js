@@ -1,8 +1,14 @@
 import messageView from './message_view.js'
+// import loginView from './login_view.js'
 export default function (store){
 
   let state = store.getState();
+  // console.log(state);
   let $user = state.currentUser;
+  // console.log($user);
+
+
+
   let $html =
         $(`<div class="outer-chat-card">
             <div class="chat-card">
