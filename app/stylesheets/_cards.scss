@@ -25,10 +25,16 @@
   .chat-card {
     position: absolute;
     bottom: 0;
+    // overflow: auto;
 
     .chat-messages {
       font-size: .7rem;
-      margin-left: 1rem;
+      margin-left: .15rem;
+      // overflow: scroll;
+    }
+    .margin-indent {
+      margin-left: 1.7rem;
+      // overflow: auto;
     }
   }
 }

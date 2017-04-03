@@ -29,8 +29,6 @@ export default function (store){
     state.allData.forEach(function(message,i,arr){
         if(message.fullMsg !== undefined){
         chatCard.prepend(messageView(store, message))
-        // chatCard.html("")
-
       }
     })
   };

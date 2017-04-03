@@ -26,13 +26,15 @@ export default function app() {
           currentUser: action.user,
           view: chatView
         };
+
         $.getJSON(url).then((data)=> {
           store.dispatch({type:"MSG_LOADED", user: newState.currentUser, allData: data})
         })
-        console.log(newState);
+
+        // console.log(newState);
         return Object.assign({}, currentState, newState);
 
-        //done when msg sent or del
+        //executed when msg sent or del
       case "LOAD_MSG":
         $.getJSON(url).then((data)=>{
           store.dispatch({type:"MSG_LOADED", user: currentState.currentUser, allData: data})
@@ -46,7 +48,7 @@ export default function app() {
 
         }
 
-        console.log(newState);
+        // console.log(newState);
         return Object.assign({}, currentState, newState);
 
 
@@ -97,6 +99,6 @@ export default function app() {
   };
 
   store.subscribe(render);
-  setInterval(()=>{type:"LOAD_MSG"}, 2000);
+
   store.dispatch({type:"NOOP"})
 }
